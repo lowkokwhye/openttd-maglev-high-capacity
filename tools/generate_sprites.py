@@ -1,25 +1,56 @@
-"""Generate original placeholder sprite sheets for the nine Maglev wagons."""
-import os, struct, zlib
-names = ["passengers","steel","armoured","oil","coal","livestock","grain","goods","iron_ore"]
-os.makedirs("graphics", exist_ok=True)
-def png(path, pixels, width, height):
-    raw=b"".join(b"\x00"+bytes(sum((list(rgb) for rgb in row),[])) for row in pixels)
-    def chunk(kind,data):
-        return struct.pack(">I",len(data))+kind+data+struct.pack(">I",zlib.crc32(kind+data)&0xffffffff)
-    data=b"\x89PNG\r\n\x1a\n"+chunk(b"IHDR",struct.pack(">IIBBBBB",width,height,8,2,0,0,0))+chunk(b"IDAT",zlib.compress(raw))+chunk(b"IEND",b"")
-    with open(path,"wb") as f:f.write(data)
-for index,name in enumerate(names):
-    width,height=320,24
-    pixels=[]
-    base=(40+index*13%130,85+index*17%120,130+index*19%110)
-    for y in range(height):
-        row=[]
-        for x in range(width):
-            xx=x%40
-            body=(4<=xx<=35 and 7<=y<=17)
-            window=(7<=xx<=32 and 9<=y<=11 and name=="passengers")
-            wheel=(xx in range(9,14) or xx in range(26,31)) and y in (18,19)
-            rgb=(0,0,255) if not (body or wheel) else ((40,40,40) if wheel else ((205,220,235) if window else base))
-            row.append(rgb)
-        pixels.append(row)
-    png("graphics/"+name+".png",pixels,width,height)
+from PIL import Image, ImageDraw
+from pathlib import Path
+OUT=Path("graphics"); OUT.mkdir(exist_ok=True)
+NAMES=["passengers","steel","armoured","oil","coal","livestock","grain","goods","iron_ore"]
+COLORS=[(70,138,218),(119,130,145),(107,105,143),(205,73,58),(88,85,77),(190,158,85),(82,150,103),(145,107,75),(112,122,135)]
+def wagon(name,index,view):
+ im=Image.new("RGBA",(40,24));d=ImageDraw.Draw(im)
+ base=COLORS[index]; dark=tuple(max(0,c-55) for c in base);light=tuple(min(255,c+60) for c in base)
+ d.rounded_rectangle((2,15,37,19),radius=2,fill=(67,79,91),outline=(31,42,53))
+ d.rectangle((5,19,35,20),fill=(32,50,61));d.line((5,20,35,20),fill=(69,212,239))
+ d.polygon([(1,14),(4,12),(4,18),(1,17)],fill=(132,217,229))
+ d.polygon([(38,14),(35,12),(35,18),(38,17)],fill=(132,217,229))
+ if name=="passengers":
+  d.rounded_rectangle((3,6,36,16),radius=3,fill=(224,231,236),outline=(59,83,104))
+  d.rectangle((5,12,35,15),fill=base)
+  for x in range(8,33,6):d.rectangle((x,8,x+4,11),fill=(44,109,157))
+  d.line((17,8,17,15),fill=(68,77,86))
+ elif name=="oil":
+  d.rounded_rectangle((4,5,35,16),radius=5,fill=(203,213,220),outline=(68,77,86))
+  d.line((6,8,33,8),fill=(255,255,255),width=2)
+  d.rectangle((4,13,35,15),fill=base)
+  for x in (12,28):d.line((x,5,x,16),fill=dark)
+  d.rectangle((19,3,23,5),fill=(67,77,86))
+ elif name in ("coal","iron_ore"):
+  d.polygon([(4,8),(35,8),(33,17),(6,17)],fill=(136,151,165),outline=(52,65,79))
+  d.rectangle((5,12,34,15),fill=base)
+  for x in range(7,34,4):
+   h=(x*7+index)%4
+   d.ellipse((x,5+h,x+5,11+h),fill=(34,37,42) if name=="coal" else (119,91,73))
+ elif name=="steel":
+  d.rectangle((5,12,35,16),fill=base,outline=dark)
+  for y in (7,9,11):d.rounded_rectangle((6,y,33,y+3),radius=1,fill=(145+y,155+y,170+y),outline=(69,78,87))
+  for x in (10,30):d.line((x,6,x,15),fill=(224,147,43),width=2)
+ elif name=="livestock":
+  d.rounded_rectangle((4,5,35,16),radius=2,fill=(209,218,209),outline=dark)
+  for y in (8,11,14):d.line((5,y,34,y),fill=base)
+  for x in range(7,35,5):d.line((x,7,x,15),fill=(49,85,62))
+ elif name=="grain":
+  d.polygon([(4,7),(10,5),(30,5),(35,7),(33,17),(6,17)],fill=(224,205,160),outline=(101,96,79))
+  for x in (12,20,28):d.line((x,5,x,16),fill=(153,135,91))
+  d.rectangle((6,12,33,15),fill=base)
+ elif name=="armoured":
+  d.rounded_rectangle((4,5,35,17),radius=2,fill=base,outline=(35,43,57),width=2)
+  for x in range(8,34,7):d.line((x,7,x,15),fill=light)
+  d.rectangle((17,8,23,13),fill=(45,51,74),outline=(223,216,167))
+ else:
+  d.rounded_rectangle((4,5,35,17),radius=2,fill=base,outline=dark)
+  for x in range(8,36,5):d.line((x,6,x,16),fill=dark)
+  d.rectangle((5,6,34,7),fill=light)
+ if view%2:d.line((5,18,35,18),fill=(135,169,186))
+ return im
+for i,name in enumerate(NAMES):
+ sheet=Image.new("RGBA",(320,24))
+ for view in range(8):sheet.paste(wagon(name,i,view),(view*40,0))
+ sheet.save(OUT/(name+".png"))
+print("Generated nine cargo-specific 32bpp sprite sheets")
