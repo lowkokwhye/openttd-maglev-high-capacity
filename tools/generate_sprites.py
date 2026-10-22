@@ -54,3 +54,25 @@ for i,name in enumerate(NAMES):
  for view in range(8):sheet.paste(wagon(name,i,view),(view*40,0))
  sheet.save(OUT/(name+".png"))
 print("Generated nine cargo-specific 32bpp sprite sheets")
+
+# NML's bundled DOS palette provides valid 8bpp company-colour mask indices.
+# 0 is transparent; 0xC6..0xCD are the primary company-colour ramp.
+from nml.palette import raw_palette_data
+for name in NAMES:
+ mask=Image.new("P",(320,24),0)
+ mask.putpalette(raw_palette_data[0])
+ pen=ImageDraw.Draw(mask)
+ for direction in range(8):
+  x=direction*40
+  if name=="passengers":
+   pen.rectangle((x+5,12,x+35,14),fill=0xCA)
+  elif name=="oil":
+   pen.rectangle((x+5,13,x+34,15),fill=0xCA)
+  elif name in ("coal","iron_ore","steel","grain"):
+   pen.rectangle((x+6,13,x+33,15),fill=0xCA)
+  elif name=="livestock":
+   pen.rectangle((x+5,5,x+34,7),fill=0xCA)
+  else:
+   pen.rectangle((x+5,7,x+34,8),fill=0xCA)
+ mask.save(OUT/(name+"_mask.png"))
+print("Generated nine company-colour recolour masks")
