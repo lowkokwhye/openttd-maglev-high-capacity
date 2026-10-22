@@ -15,3 +15,8 @@ jobs:
         with:
           name: maglev-high-capacity-grf
           path: maglev_high_capacity_v0.1.0.grf
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: goods-opengfx-reference-sprites
+          path: graphics/goods_opengfx_reference.png
