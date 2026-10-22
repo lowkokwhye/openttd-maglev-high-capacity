@@ -1,78 +1,84 @@
 from PIL import Image, ImageDraw
 from pathlib import Path
-OUT=Path("graphics"); OUT.mkdir(exist_ok=True)
-NAMES=["passengers","steel","armoured","oil","coal","livestock","grain","goods","iron_ore"]
-COLORS=[(70,138,218),(119,130,145),(107,105,143),(205,73,58),(88,85,77),(190,158,85),(82,150,103),(145,107,75),(112,122,135)]
-def wagon(name,index,view):
- im=Image.new("RGBA",(40,24));d=ImageDraw.Draw(im)
- base=COLORS[index]; dark=tuple(max(0,c-55) for c in base);light=tuple(min(255,c+60) for c in base)
- d.rounded_rectangle((2,15,37,19),radius=2,fill=(67,79,91),outline=(31,42,53))
- d.rectangle((5,19,35,20),fill=(32,50,61));d.line((5,20,35,20),fill=(69,212,239))
- d.polygon([(1,14),(4,12),(4,18),(1,17)],fill=(132,217,229))
- d.polygon([(38,14),(35,12),(35,18),(38,17)],fill=(132,217,229))
- if name=="passengers":
-  d.rounded_rectangle((3,6,36,16),radius=3,fill=(224,231,236),outline=(59,83,104))
-  d.rectangle((5,12,35,15),fill=base)
-  for x in range(8,33,6):d.rectangle((x,8,x+4,11),fill=(44,109,157))
-  d.line((17,8,17,15),fill=(68,77,86))
- elif name=="oil":
-  d.rounded_rectangle((4,5,35,16),radius=5,fill=(203,213,220),outline=(68,77,86))
-  d.line((6,8,33,8),fill=(255,255,255),width=2)
-  d.rectangle((4,13,35,15),fill=base)
-  for x in (12,28):d.line((x,5,x,16),fill=dark)
-  d.rectangle((19,3,23,5),fill=(67,77,86))
- elif name in ("coal","iron_ore"):
-  d.polygon([(4,8),(35,8),(33,17),(6,17)],fill=(136,151,165),outline=(52,65,79))
-  d.rectangle((5,12,34,15),fill=base)
-  for x in range(7,34,4):
-   h=(x*7+index)%4
-   d.ellipse((x,5+h,x+5,11+h),fill=(34,37,42) if name=="coal" else (119,91,73))
- elif name=="steel":
-  d.rectangle((5,12,35,16),fill=base,outline=dark)
-  for y in (7,9,11):d.rounded_rectangle((6,y,33,y+3),radius=1,fill=(145+y,155+y,170+y),outline=(69,78,87))
-  for x in (10,30):d.line((x,6,x,15),fill=(224,147,43),width=2)
- elif name=="livestock":
-  d.rounded_rectangle((4,5,35,16),radius=2,fill=(209,218,209),outline=dark)
-  for y in (8,11,14):d.line((5,y,34,y),fill=base)
-  for x in range(7,35,5):d.line((x,7,x,15),fill=(49,85,62))
- elif name=="grain":
-  d.polygon([(4,7),(10,5),(30,5),(35,7),(33,17),(6,17)],fill=(224,205,160),outline=(101,96,79))
-  for x in (12,20,28):d.line((x,5,x,16),fill=(153,135,91))
-  d.rectangle((6,12,33,15),fill=base)
- elif name=="armoured":
-  d.rounded_rectangle((4,5,35,17),radius=2,fill=base,outline=(35,43,57),width=2)
-  for x in range(8,34,7):d.line((x,7,x,15),fill=light)
-  d.rectangle((17,8,23,13),fill=(45,51,74),outline=(223,216,167))
- else:
-  d.rounded_rectangle((4,5,35,17),radius=2,fill=base,outline=dark)
-  for x in range(8,36,5):d.line((x,6,x,16),fill=dark)
-  d.rectangle((5,6,34,7),fill=light)
- if view%2:d.line((5,18,35,18),fill=(135,169,186))
- return im
-for i,name in enumerate(NAMES):
- sheet=Image.new("RGBA",(320,24))
- for view in range(8):sheet.paste(wagon(name,i,view),(view*40,0))
- sheet.save(OUT/(name+".png"))
-print("Generated nine cargo-specific 32bpp sprite sheets")
-
-# NML's bundled DOS palette provides valid 8bpp company-colour mask indices.
-# 0 is transparent; 0xC6..0xCD are the primary company-colour ramp.
+from math import sqrt
 from nml.palette import raw_palette_data
-for name in NAMES:
- mask=Image.new("P",(320,24),0)
+
+OUT=Path("graphics")
+OUT.mkdir(exist_ok=True)
+NAMES=["passengers","steel","armoured","oil","coal","livestock","grain","goods","iron_ore"]
+BASE={"passengers":(205,217,229),"steel":(113,127,143),"armoured":(106,111,138),"oil":(186,198,209),"coal":(106,122,137),"livestock":(172,190,178),"grain":(199,181,135),"goods":(163,137,111),"iron_ore":(118,132,144)}
+# OpenTTD sprite order: short end, diagonal, long side, diagonal, opposite end, diagonal, opposite long side, diagonal.
+VECTORS=[(0,1),(-1,0.47),(-1,0),(-1,-0.47),(0,-1),(1,-0.47),(1,0),(1,0.47)]
+W,H=64,40
+def tint(c,n):
+ return tuple(max(0,min(255,int(v*n))) for v in c)
+def draw_one(name,direction):
+ im=Image.new("RGBA",(W,H),(0,0,0,0))
+ mask=Image.new("P",(W,H),0)
  mask.putpalette(raw_palette_data[0])
- pen=ImageDraw.Draw(mask)
+ d=ImageDraw.Draw(im);m=ImageDraw.Draw(mask)
+ ux,uy=VECTORS[direction]
+ mag=sqrt(ux*ux+uy*uy);ux/=mag;uy/=mag
+ # Screen-space width axis. End-on sprites remain short and narrow.
+ vx,vy=-uy,ux
+ half=22 if direction in (2,6) else (18 if direction%2 else 7)
+ width=5 if direction in (0,4) else 6
+ cx,cy=32,23
+ def pt(along,across,z=0):
+  return (round(cx+ux*along+vx*across),round(cy+uy*along+vy*across-z))
+ def quad(a,b,w,z=0):
+  return [pt(a,-w,z),pt(b,-w,z),pt(b,w,z),pt(a,w,z)]
+ base=BASE[name]
+ # Maglev running gear, dark low profile with cyan levitation rail
+ d.polygon(quad(-half-1,half+1,width+1,-2),fill=(43,54,65,255))
+ d.line([pt(-half,0,-3),pt(half,0,-3)],fill=(58,202,229,255),width=2)
+ # Solid side and roof polygons: correct orientation per sprite
+ d.polygon(quad(-half,half,width,2),fill=tint(base,.73)+(255,))
+ d.polygon(quad(-half,half,width,8),fill=tint(base,1.12)+(255,))
+ d.line([pt(-half,-width,8),pt(half,-width,8)],fill=(239,246,247,255),width=1)
+ for end in (-half,half):
+  d.line([pt(end,-width,2),pt(end,-width,8),pt(end,width,8),pt(end,width,2)],fill=(55,70,83,255),width=1)
+ # Recolourable stripe on side: NML palette index 0xC8 in mask, transparent elsewhere.
+ stripe=[pt(-half+2,-width-.1,4),pt(half-2,-width-.1,4)]
+ d.line(stripe,fill=(135,135,135,255),width=2)
+ m.line(stripe,fill=0xC8,width=2)
+ if name=="passengers":
+  for i in range(-half+4,half-2,6):
+   d.polygon([pt(i,-width-.2,5),pt(i+4,-width-.2,5),pt(i+4,-width-.2,7),pt(i,-width-.2,7)],fill=(35,101,152,255))
+ elif name=="oil":
+  d.line([pt(-half+3,0,9),pt(half-3,0,9)],fill=(243,248,250,255),width=5)
+  for i in range(-half+6,half-3,9):
+   d.line([pt(i,-width+1,8),pt(i,width-1,8)],fill=(76,86,94,255),width=1)
+ elif name in ("coal","iron_ore"):
+  d.polygon(quad(-half+2,half-2,width-1,9),fill=(45,45,48,255) if name=="coal" else (133,91,66,255))
+  for i in range(-half+3,half-2,5):
+   d.ellipse((pt(i,0,10)[0]-2,pt(i,0,10)[1]-1,pt(i,0,10)[0]+2,pt(i,0,10)[1]+1),fill=(22,26,29,255) if name=="coal" else (169,108,70,255))
+ elif name=="steel":
+  for a in (-2,0,2):
+   d.line([pt(-half+3,a,10),pt(half-3,a,10)],fill=(190,201,213,255),width=2)
+  for i in (-half+7,half-7):
+   d.line([pt(i,-width,11),pt(i,width,11)],fill=(226,146,46,255),width=2)
+ elif name=="livestock":
+  for i in range(-half+4,half-2,5):
+   d.line([pt(i,-width-.1,5),pt(i,-width-.1,7)],fill=(42,75,59,255),width=1)
+ elif name=="grain":
+  for i in range(-half+6,half-2,8):
+   d.line([pt(i,-width+1,9),pt(i,width-1,9)],fill=(134,116,79,255),width=1)
+ elif name=="armoured":
+  for i in range(-half+5,half-2,8):
+   d.line([pt(i,-width-.1,3),pt(i,-width-.1,8)],fill=(59,61,85,255),width=1)
+ elif name=="goods":
+  for i in range(-half+4,half-2,4):
+   d.line([pt(i,-width-.1,3),pt(i,-width-.1,8)],fill=(103,76,56,255),width=1)
+ return im,mask
+
+for name in NAMES:
+ sheet=Image.new("RGBA",(W*8,H),(0,0,0,0))
+ masks=Image.new("P",(W*8,H),0);masks.putpalette(raw_palette_data[0])
  for direction in range(8):
-  x=direction*40
-  if name=="passengers":
-   pen.rectangle((x+5,12,x+35,14),fill=0xCA)
-  elif name=="oil":
-   pen.rectangle((x+5,13,x+34,15),fill=0xCA)
-  elif name in ("coal","iron_ore","steel","grain"):
-   pen.rectangle((x+6,13,x+33,15),fill=0xCA)
-  elif name=="livestock":
-   pen.rectangle((x+5,5,x+34,7),fill=0xCA)
-  else:
-   pen.rectangle((x+5,7,x+34,8),fill=0xCA)
- mask.save(OUT/(name+"_mask.png"))
-print("Generated nine company-colour recolour masks")
+  sprite,mask=draw_one(name,direction)
+  sheet.paste(sprite,(direction*W,0))
+  masks.paste(mask,(direction*W,0))
+ sheet.save(OUT/(name+".png"))
+ masks.save(OUT/(name+"_mask.png"))
+print("Generated eight-direction isometric wagon sprites and recolour masks for nine cargo types.")
