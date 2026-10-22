@@ -256,7 +256,9 @@ spriteset(sprites_goods, "graphics/goods_opengfx.png") {
     [160, 0, 20, 16, -13, -9]
     [192, 0, 28, 12, -15, -8]
     [224, 0, 20, 16, -5, -9]
-}item(FEAT_TRAINS, wagon_goods, 7) {
+}
+spritegroup group_goods { loaded: sprites_goods; loading: sprites_goods; }
+item(FEAT_TRAINS, wagon_goods, 7) {
  property {
   name: string(STR_WAGON_GOODS);
   climates_available: ALL_CLIMATES;
