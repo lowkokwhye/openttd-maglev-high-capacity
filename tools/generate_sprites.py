@@ -180,3 +180,27 @@ for view in range(8):
 goods_sheet.save(OUT/"goods.png")
 goods_mask.save(OUT/"goods_mask.png")
 print("Goods proof-of-concept sprite sheet generated")
+
+# Goods prototype: source-aligned OpenGFX goods wagon artwork.
+# OpenGFX is GPL-2.0; keep attribution and license when redistributing.
+# Original sprites: sprites/png/trains/temperatemonolev.png,
+# tmpl_train_4view_88length_28px(0,220), x=(0,16,48,96).
+from urllib.request import urlopen
+from io import BytesIO
+URL="https://raw.githubusercontent.com/OpenTTD/OpenGFX/master/sprites/png/trains/temperatemonolev.png"
+original=Image.open(BytesIO(urlopen(URL,timeout=30).read()))
+print("OpenGFX reference:",original.mode,original.size)
+if original.mode!="P":
+ raise RuntimeError("Expected indexed OpenGFX source artwork")
+# The 8bpp palette carries OpenTTD's native company-colour ramps.
+# Do not convert to RGBA, which would bake the recolour indices.
+views=[(0,220,8,18,-3,-12),(16,220,20,16,-13,-9),
+       (48,220,28,12,-15,-8),(96,220,20,16,-5,-9)]
+sheet=Image.new("P",(8*32,20),0)
+sheet.putpalette(original.getpalette())
+for i in range(8):
+ x,y,w,h,ox,oy=views[i%4]
+ sprite=original.crop((x,y,x+w,y+h))
+ sheet.paste(sprite,(i*32,0))
+sheet.save(OUT/"goods_opengfx_reference.png")
+print("Saved OpenGFX-aligned Goods reference sprites (8bpp)")
