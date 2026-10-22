@@ -1,0 +1,12 @@
+##grflangid 0x01
+STR_GRF_NAME : Maglev High Capacity Wagons
+STR_GRF_DESC : High capacity fast loading Maglev wagons
+STR_WAGON_PASSENGERS : Maglev PASSENGERS Wagon
+STR_WAGON_STEEL : Maglev STEEL Wagon
+STR_WAGON_ARMOURED : Maglev ARMOURED Wagon
+STR_WAGON_OIL : Maglev OIL Wagon
+STR_WAGON_COAL : Maglev COAL Wagon
+STR_WAGON_LIVESTOCK : Maglev LIVESTOCK Wagon
+STR_WAGON_GRAIN : Maglev GRAIN Wagon
+STR_WAGON_GOODS : Maglev GOODS Wagon
+STR_WAGON_IRON_ORE : Maglev IRON ORE Wagon
