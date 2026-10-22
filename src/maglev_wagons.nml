@@ -3,14 +3,14 @@ grf { grfid: "MH01"; name: string(STR_GRF_NAME); desc: string(STR_GRF_DESC); ver
 cargotable { PASS, STEL, VALU, OIL_, COAL, LVST, GRAI, GOOD, IORE }
 
 spriteset(sprites_passengers, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "graphics/passengers.png", "graphics/passengers_mask.png") {
-    [0, 0, 40, 24, -20, -12]
-    [40, 0, 40, 24, -20, -12]
-    [80, 0, 40, 24, -20, -12]
-    [120, 0, 40, 24, -20, -12]
-    [160, 0, 40, 24, -20, -12]
-    [200, 0, 40, 24, -20, -12]
-    [240, 0, 40, 24, -20, -12]
-    [280, 0, 40, 24, -20, -12]
+    [0, 0, 64, 40, -32, -20]
+    [64, 0, 64, 40, -32, -20]
+    [128, 0, 64, 40, -32, -20]
+    [192, 0, 64, 40, -32, -20]
+    [256, 0, 64, 40, -32, -20]
+    [320, 0, 64, 40, -32, -20]
+    [384, 0, 64, 40, -32, -20]
+    [448, 0, 64, 40, -32, -20]
 }
 spritegroup group_passengers { loaded: sprites_passengers; loading: sprites_passengers; }
 item(FEAT_TRAINS, wagon_passengers, 0) {
@@ -39,14 +39,14 @@ item(FEAT_TRAINS, wagon_passengers, 0) {
 }
 
 spriteset(sprites_steel, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "graphics/steel.png", "graphics/steel_mask.png") {
-    [0, 0, 40, 24, -20, -12]
-    [40, 0, 40, 24, -20, -12]
-    [80, 0, 40, 24, -20, -12]
-    [120, 0, 40, 24, -20, -12]
-    [160, 0, 40, 24, -20, -12]
-    [200, 0, 40, 24, -20, -12]
-    [240, 0, 40, 24, -20, -12]
-    [280, 0, 40, 24, -20, -12]
+    [0, 0, 64, 40, -32, -20]
+    [64, 0, 64, 40, -32, -20]
+    [128, 0, 64, 40, -32, -20]
+    [192, 0, 64, 40, -32, -20]
+    [256, 0, 64, 40, -32, -20]
+    [320, 0, 64, 40, -32, -20]
+    [384, 0, 64, 40, -32, -20]
+    [448, 0, 64, 40, -32, -20]
 }
 spritegroup group_steel { loaded: sprites_steel; loading: sprites_steel; }
 item(FEAT_TRAINS, wagon_steel, 1) {
@@ -75,14 +75,14 @@ item(FEAT_TRAINS, wagon_steel, 1) {
 }
 
 spriteset(sprites_armoured, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "graphics/armoured.png", "graphics/armoured_mask.png") {
-    [0, 0, 40, 24, -20, -12]
-    [40, 0, 40, 24, -20, -12]
-    [80, 0, 40, 24, -20, -12]
-    [120, 0, 40, 24, -20, -12]
-    [160, 0, 40, 24, -20, -12]
-    [200, 0, 40, 24, -20, -12]
-    [240, 0, 40, 24, -20, -12]
-    [280, 0, 40, 24, -20, -12]
+    [0, 0, 64, 40, -32, -20]
+    [64, 0, 64, 40, -32, -20]
+    [128, 0, 64, 40, -32, -20]
+    [192, 0, 64, 40, -32, -20]
+    [256, 0, 64, 40, -32, -20]
+    [320, 0, 64, 40, -32, -20]
+    [384, 0, 64, 40, -32, -20]
+    [448, 0, 64, 40, -32, -20]
 }
 spritegroup group_armoured { loaded: sprites_armoured; loading: sprites_armoured; }
 item(FEAT_TRAINS, wagon_armoured, 2) {
@@ -111,14 +111,14 @@ item(FEAT_TRAINS, wagon_armoured, 2) {
 }
 
 spriteset(sprites_oil, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "graphics/oil.png", "graphics/oil_mask.png") {
-    [0, 0, 40, 24, -20, -12]
-    [40, 0, 40, 24, -20, -12]
-    [80, 0, 40, 24, -20, -12]
-    [120, 0, 40, 24, -20, -12]
-    [160, 0, 40, 24, -20, -12]
-    [200, 0, 40, 24, -20, -12]
-    [240, 0, 40, 24, -20, -12]
-    [280, 0, 40, 24, -20, -12]
+    [0, 0, 64, 40, -32, -20]
+    [64, 0, 64, 40, -32, -20]
+    [128, 0, 64, 40, -32, -20]
+    [192, 0, 64, 40, -32, -20]
+    [256, 0, 64, 40, -32, -20]
+    [320, 0, 64, 40, -32, -20]
+    [384, 0, 64, 40, -32, -20]
+    [448, 0, 64, 40, -32, -20]
 }
 spritegroup group_oil { loaded: sprites_oil; loading: sprites_oil; }
 item(FEAT_TRAINS, wagon_oil, 3) {
@@ -147,14 +147,14 @@ item(FEAT_TRAINS, wagon_oil, 3) {
 }
 
 spriteset(sprites_coal, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "graphics/coal.png", "graphics/coal_mask.png") {
-    [0, 0, 40, 24, -20, -12]
-    [40, 0, 40, 24, -20, -12]
-    [80, 0, 40, 24, -20, -12]
-    [120, 0, 40, 24, -20, -12]
-    [160, 0, 40, 24, -20, -12]
-    [200, 0, 40, 24, -20, -12]
-    [240, 0, 40, 24, -20, -12]
-    [280, 0, 40, 24, -20, -12]
+    [0, 0, 64, 40, -32, -20]
+    [64, 0, 64, 40, -32, -20]
+    [128, 0, 64, 40, -32, -20]
+    [192, 0, 64, 40, -32, -20]
+    [256, 0, 64, 40, -32, -20]
+    [320, 0, 64, 40, -32, -20]
+    [384, 0, 64, 40, -32, -20]
+    [448, 0, 64, 40, -32, -20]
 }
 spritegroup group_coal { loaded: sprites_coal; loading: sprites_coal; }
 item(FEAT_TRAINS, wagon_coal, 4) {
@@ -183,14 +183,14 @@ item(FEAT_TRAINS, wagon_coal, 4) {
 }
 
 spriteset(sprites_livestock, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "graphics/livestock.png", "graphics/livestock_mask.png") {
-    [0, 0, 40, 24, -20, -12]
-    [40, 0, 40, 24, -20, -12]
-    [80, 0, 40, 24, -20, -12]
-    [120, 0, 40, 24, -20, -12]
-    [160, 0, 40, 24, -20, -12]
-    [200, 0, 40, 24, -20, -12]
-    [240, 0, 40, 24, -20, -12]
-    [280, 0, 40, 24, -20, -12]
+    [0, 0, 64, 40, -32, -20]
+    [64, 0, 64, 40, -32, -20]
+    [128, 0, 64, 40, -32, -20]
+    [192, 0, 64, 40, -32, -20]
+    [256, 0, 64, 40, -32, -20]
+    [320, 0, 64, 40, -32, -20]
+    [384, 0, 64, 40, -32, -20]
+    [448, 0, 64, 40, -32, -20]
 }
 spritegroup group_livestock { loaded: sprites_livestock; loading: sprites_livestock; }
 item(FEAT_TRAINS, wagon_livestock, 5) {
@@ -219,14 +219,14 @@ item(FEAT_TRAINS, wagon_livestock, 5) {
 }
 
 spriteset(sprites_grain, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "graphics/grain.png", "graphics/grain_mask.png") {
-    [0, 0, 40, 24, -20, -12]
-    [40, 0, 40, 24, -20, -12]
-    [80, 0, 40, 24, -20, -12]
-    [120, 0, 40, 24, -20, -12]
-    [160, 0, 40, 24, -20, -12]
-    [200, 0, 40, 24, -20, -12]
-    [240, 0, 40, 24, -20, -12]
-    [280, 0, 40, 24, -20, -12]
+    [0, 0, 64, 40, -32, -20]
+    [64, 0, 64, 40, -32, -20]
+    [128, 0, 64, 40, -32, -20]
+    [192, 0, 64, 40, -32, -20]
+    [256, 0, 64, 40, -32, -20]
+    [320, 0, 64, 40, -32, -20]
+    [384, 0, 64, 40, -32, -20]
+    [448, 0, 64, 40, -32, -20]
 }
 spritegroup group_grain { loaded: sprites_grain; loading: sprites_grain; }
 item(FEAT_TRAINS, wagon_grain, 6) {
@@ -255,14 +255,14 @@ item(FEAT_TRAINS, wagon_grain, 6) {
 }
 
 spriteset(sprites_goods, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "graphics/goods.png", "graphics/goods_mask.png") {
-    [0, 0, 40, 24, -20, -12]
-    [40, 0, 40, 24, -20, -12]
-    [80, 0, 40, 24, -20, -12]
-    [120, 0, 40, 24, -20, -12]
-    [160, 0, 40, 24, -20, -12]
-    [200, 0, 40, 24, -20, -12]
-    [240, 0, 40, 24, -20, -12]
-    [280, 0, 40, 24, -20, -12]
+    [0, 0, 64, 40, -32, -20]
+    [64, 0, 64, 40, -32, -20]
+    [128, 0, 64, 40, -32, -20]
+    [192, 0, 64, 40, -32, -20]
+    [256, 0, 64, 40, -32, -20]
+    [320, 0, 64, 40, -32, -20]
+    [384, 0, 64, 40, -32, -20]
+    [448, 0, 64, 40, -32, -20]
 }
 spritegroup group_goods { loaded: sprites_goods; loading: sprites_goods; }
 item(FEAT_TRAINS, wagon_goods, 7) {
@@ -291,14 +291,14 @@ item(FEAT_TRAINS, wagon_goods, 7) {
 }
 
 spriteset(sprites_iron_ore, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "graphics/iron_ore.png", "graphics/iron_ore_mask.png") {
-    [0, 0, 40, 24, -20, -12]
-    [40, 0, 40, 24, -20, -12]
-    [80, 0, 40, 24, -20, -12]
-    [120, 0, 40, 24, -20, -12]
-    [160, 0, 40, 24, -20, -12]
-    [200, 0, 40, 24, -20, -12]
-    [240, 0, 40, 24, -20, -12]
-    [280, 0, 40, 24, -20, -12]
+    [0, 0, 64, 40, -32, -20]
+    [64, 0, 64, 40, -32, -20]
+    [128, 0, 64, 40, -32, -20]
+    [192, 0, 64, 40, -32, -20]
+    [256, 0, 64, 40, -32, -20]
+    [320, 0, 64, 40, -32, -20]
+    [384, 0, 64, 40, -32, -20]
+    [448, 0, 64, 40, -32, -20]
 }
 spritegroup group_iron_ore { loaded: sprites_iron_ore; loading: sprites_iron_ore; }
 item(FEAT_TRAINS, wagon_iron_ore, 8) {
