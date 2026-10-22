@@ -25,7 +25,7 @@ item(FEAT_TRAINS, wagon_passengers, 0) {
   track_type: MGLV;
   engine_class: ENGINE_CLASS_MAGLEV;
   power: 0 hp;
-  speed: 643 km/h;
+  speed: 0 km/h;
   weight: 20 ton;
   length: 8;
   cost_factor: 20;
@@ -61,7 +61,7 @@ item(FEAT_TRAINS, wagon_steel, 1) {
   track_type: MGLV;
   engine_class: ENGINE_CLASS_MAGLEV;
   power: 0 hp;
-  speed: 643 km/h;
+  speed: 0 km/h;
   weight: 20 ton;
   length: 8;
   cost_factor: 20;
@@ -97,7 +97,7 @@ item(FEAT_TRAINS, wagon_armoured, 2) {
   track_type: MGLV;
   engine_class: ENGINE_CLASS_MAGLEV;
   power: 0 hp;
-  speed: 643 km/h;
+  speed: 0 km/h;
   weight: 20 ton;
   length: 8;
   cost_factor: 20;
@@ -133,7 +133,7 @@ item(FEAT_TRAINS, wagon_oil, 3) {
   track_type: MGLV;
   engine_class: ENGINE_CLASS_MAGLEV;
   power: 0 hp;
-  speed: 643 km/h;
+  speed: 0 km/h;
   weight: 20 ton;
   length: 8;
   cost_factor: 20;
@@ -169,7 +169,7 @@ item(FEAT_TRAINS, wagon_coal, 4) {
   track_type: MGLV;
   engine_class: ENGINE_CLASS_MAGLEV;
   power: 0 hp;
-  speed: 643 km/h;
+  speed: 0 km/h;
   weight: 20 ton;
   length: 8;
   cost_factor: 20;
@@ -205,7 +205,7 @@ item(FEAT_TRAINS, wagon_livestock, 5) {
   track_type: MGLV;
   engine_class: ENGINE_CLASS_MAGLEV;
   power: 0 hp;
-  speed: 643 km/h;
+  speed: 0 km/h;
   weight: 20 ton;
   length: 8;
   cost_factor: 20;
@@ -241,7 +241,7 @@ item(FEAT_TRAINS, wagon_grain, 6) {
   track_type: MGLV;
   engine_class: ENGINE_CLASS_MAGLEV;
   power: 0 hp;
-  speed: 643 km/h;
+  speed: 0 km/h;
   weight: 20 ton;
   length: 8;
   cost_factor: 20;
@@ -277,7 +277,7 @@ item(FEAT_TRAINS, wagon_goods, 7) {
   track_type: MGLV;
   engine_class: ENGINE_CLASS_MAGLEV;
   power: 0 hp;
-  speed: 643 km/h;
+  speed: 0 km/h;
   weight: 20 ton;
   length: 8;
   cost_factor: 20;
@@ -313,7 +313,7 @@ item(FEAT_TRAINS, wagon_iron_ore, 8) {
   track_type: MGLV;
   engine_class: ENGINE_CLASS_MAGLEV;
   power: 0 hp;
-  speed: 643 km/h;
+  speed: 0 km/h;
   weight: 20 ton;
   length: 8;
   cost_factor: 20;
