@@ -2,7 +2,7 @@
 grf { grfid: "MH01"; name: string(STR_GRF_NAME); desc: string(STR_GRF_DESC); version: 1; min_compatible_version: 1; }
 cargotable { PASS, STEL, VALU, OIL_, COAL, LVST, GRAI, GOOD, IORE }
 
-spriteset(sprites_passengers, "graphics/passengers.png") {
+spriteset(sprites_passengers, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "graphics/passengers.png") {
     [0, 0, 40, 24, -20, -12]
     [40, 0, 40, 24, -20, -12]
     [80, 0, 40, 24, -20, -12]
@@ -38,7 +38,7 @@ item(FEAT_TRAINS, wagon_passengers, 0) {
  graphics { cargo_capacity: return 1000; default: group_passengers; }
 }
 
-spriteset(sprites_steel, "graphics/steel.png") {
+spriteset(sprites_steel, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "graphics/steel.png") {
     [0, 0, 40, 24, -20, -12]
     [40, 0, 40, 24, -20, -12]
     [80, 0, 40, 24, -20, -12]
@@ -74,7 +74,7 @@ item(FEAT_TRAINS, wagon_steel, 1) {
  graphics { cargo_capacity: return 1000; default: group_steel; }
 }
 
-spriteset(sprites_armoured, "graphics/armoured.png") {
+spriteset(sprites_armoured, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "graphics/armoured.png") {
     [0, 0, 40, 24, -20, -12]
     [40, 0, 40, 24, -20, -12]
     [80, 0, 40, 24, -20, -12]
@@ -110,7 +110,7 @@ item(FEAT_TRAINS, wagon_armoured, 2) {
  graphics { cargo_capacity: return 1000; default: group_armoured; }
 }
 
-spriteset(sprites_oil, "graphics/oil.png") {
+spriteset(sprites_oil, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "graphics/oil.png") {
     [0, 0, 40, 24, -20, -12]
     [40, 0, 40, 24, -20, -12]
     [80, 0, 40, 24, -20, -12]
@@ -146,7 +146,7 @@ item(FEAT_TRAINS, wagon_oil, 3) {
  graphics { cargo_capacity: return 1000; default: group_oil; }
 }
 
-spriteset(sprites_coal, "graphics/coal.png") {
+spriteset(sprites_coal, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "graphics/coal.png") {
     [0, 0, 40, 24, -20, -12]
     [40, 0, 40, 24, -20, -12]
     [80, 0, 40, 24, -20, -12]
@@ -182,7 +182,7 @@ item(FEAT_TRAINS, wagon_coal, 4) {
  graphics { cargo_capacity: return 1000; default: group_coal; }
 }
 
-spriteset(sprites_livestock, "graphics/livestock.png") {
+spriteset(sprites_livestock, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "graphics/livestock.png") {
     [0, 0, 40, 24, -20, -12]
     [40, 0, 40, 24, -20, -12]
     [80, 0, 40, 24, -20, -12]
@@ -218,7 +218,7 @@ item(FEAT_TRAINS, wagon_livestock, 5) {
  graphics { cargo_capacity: return 1000; default: group_livestock; }
 }
 
-spriteset(sprites_grain, "graphics/grain.png") {
+spriteset(sprites_grain, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "graphics/grain.png") {
     [0, 0, 40, 24, -20, -12]
     [40, 0, 40, 24, -20, -12]
     [80, 0, 40, 24, -20, -12]
@@ -254,7 +254,7 @@ item(FEAT_TRAINS, wagon_grain, 6) {
  graphics { cargo_capacity: return 1000; default: group_grain; }
 }
 
-spriteset(sprites_goods, "graphics/goods.png") {
+spriteset(sprites_goods, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "graphics/goods.png") {
     [0, 0, 40, 24, -20, -12]
     [40, 0, 40, 24, -20, -12]
     [80, 0, 40, 24, -20, -12]
@@ -290,7 +290,7 @@ item(FEAT_TRAINS, wagon_goods, 7) {
  graphics { cargo_capacity: return 1000; default: group_goods; }
 }
 
-spriteset(sprites_iron_ore, "graphics/iron_ore.png") {
+spriteset(sprites_iron_ore, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "graphics/iron_ore.png") {
     [0, 0, 40, 24, -20, -12]
     [40, 0, 40, 24, -20, -12]
     [80, 0, 40, 24, -20, -12]
