@@ -35,3 +35,7 @@ Download the artifact ZIP from the latest successful GitHub Actions run. Extract
 ## Status
 
 The NewGRF has compiled successfully in GitHub Actions. Graphics and recolouring need visual verification in-game before a polished release.
+
+## Goods artwork reference and licence
+
+The Goods wagon proof-of-concept uses original 8bpp OpenGFX artwork from [OpenTTD/OpenGFX](https://github.com/OpenTTD/OpenGFX), specifically `sprites/png/trains/temperatemonolev.png` at the Goods wagon row (y=220), and follows the `tmpl_train_4view_88length_28px` geometry and offsets. OpenGFX is distributed under **GPL-2.0**; credit goes to the OpenGFX contributors. This project must comply with the upstream GPL-2.0 licence when redistributing the derived graphics. The original indexed palette preserves native company-colour recolouring. The other eight wagons retain the earlier experimental artwork for now.
