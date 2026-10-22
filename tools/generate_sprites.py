@@ -114,3 +114,69 @@ for name in NAMES:
  sheet.save(OUT/(name+".png"))
  masks.save(OUT/(name+"_mask.png"))
 print("Generated nine eight-view Maglev wagons, 48x32px per sprite, with recolour masks")
+
+# Goods wagon proof-of-concept: hand-authored pixel geometry with
+# OpenTTD-like 8-view silhouettes (end, diagonal, side, diagonal, ...).
+def render_goods_prototype(view):
+ im=Image.new("RGBA",(W,H),(0,0,0,0))
+ mask=Image.new("P",(W,H),0);mask.putpalette(raw_palette_data[0])
+ d=ImageDraw.Draw(im);m=ImageDraw.Draw(mask)
+ outline=(49,57,67,255);roof=(168,132,93,255)
+ side=(136,94,61,255);end=(105,75,57,255)
+ light=(202,164,120,255);skirt=(59,75,88,255)
+ # A conventional OpenTTD vehicle is low and ~28 px long in side views.
+ # Diagonals are sloped parallelograms, NOT upright platforms.
+ if view in (0,4):
+  # End views are narrow, upright silhouettes, with a sloping roof.
+  d.polygon([(20,13),(24,11),(28,13),(28,24),(20,24)],fill=side)
+  d.line([(20,13),(24,11),(28,13)],fill=light,width=1)
+  d.rectangle((19,23,29,25),fill=skirt)
+  d.line([(21,18),(27,18)],fill=outline)
+  d.line([(21,21),(27,21)],fill=outline)
+  m.line([(20,22),(28,22)],fill=0xC8,width=1)
+ elif view in (2,6):
+  # Long near-horizontal profile with 2px roof, 8px cargo body.
+  d.polygon([(9,14),(12,12),(37,12),(40,14),(40,23),(9,23)],fill=side,outline=outline)
+  d.polygon([(12,12),(37,12),(40,14),(9,14)],fill=roof)
+  d.line([(11,15),(38,15)],fill=light)
+  for x in range(14,39,5):
+   d.line([(x,16),(x,21)],fill=end)
+  d.rectangle((9,23,40,25),fill=skirt)
+  d.line([(12,25),(38,25)],fill=(51,189,211,255))
+  m.line([(11,22),(38,22)],fill=0xC8,width=1)
+ else:
+  # True 2:1 isometric diagonals: 28px along x, 14px along y.
+  # Keep the wagon body below 12px high and aligned with the rail.
+  falling=view in (1,5)
+  if falling:
+   roofpoly=[(9,13),(32,23),(38,20),(15,10)]
+   near=[(9,13),(32,23),(32,28),(9,18)]
+   far=[(32,23),(38,20),(38,25),(32,28)]
+   rail=[(8,20),(32,30),(39,27)]
+   accents=[(11,18),(32,27)]
+  else:
+   roofpoly=[(9,23),(32,12),(38,15),(15,26)]
+   near=[(9,23),(32,12),(32,18),(9,29)]
+   far=[(32,12),(38,15),(38,21),(32,18)]
+   rail=[(8,30),(32,19),(39,23)]
+   accents=[(11,28),(32,17)]
+  d.polygon(near,fill=side)
+  d.polygon(far,fill=end)
+  d.polygon(roofpoly,fill=roof)
+  d.line(roofpoly+[roofpoly[0]],fill=outline,width=1)
+  d.line(rail,fill=skirt,width=2)
+  d.line(accents,fill=light,width=1)
+  m.line(accents,fill=0xC8,width=1)
+ return im,mask
+
+# Overwrite only Goods: leave the other eight existing sprite sets unchanged
+# until this prototype is approved visually in-game.
+goods_sheet=Image.new("RGBA",(W*8,H),(0,0,0,0))
+goods_mask=Image.new("P",(W*8,H),0);goods_mask.putpalette(raw_palette_data[0])
+for view in range(8):
+ sprite,recolour=render_goods_prototype(view)
+ goods_sheet.paste(sprite,(view*W,0))
+ goods_mask.paste(recolour,(view*W,0))
+goods_sheet.save(OUT/"goods.png")
+goods_mask.save(OUT/"goods_mask.png")
+print("Goods proof-of-concept sprite sheet generated")
