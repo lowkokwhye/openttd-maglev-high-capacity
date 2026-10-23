@@ -317,3 +317,39 @@ item(FEAT_TRAINS, wagon_iron_ore, 8) {
  }
  graphics { cargo_capacity: return 500; default: group_iron_ore; }
 }
+
+// High-speed Maglev engine using original OpenGFX Lev4 Chimaera artwork.
+spriteset(sprites_engine, "graphics/engine_opengfx.png") {
+    [0, 0, 8, 24, -3, -12]
+    [32, 0, 22, 17, -14, -9]
+    [64, 0, 32, 12, -16, -8]
+    [96, 0, 22, 17, -6, -9]
+    [128, 0, 8, 24, -3, -12]
+    [160, 0, 22, 17, -14, -9]
+    [192, 0, 32, 12, -16, -8]
+    [224, 0, 22, 17, -6, -9]
+}
+spritegroup group_engine { loaded: sprites_engine; loading: sprites_engine; }
+item(FEAT_TRAINS, maglev_engine, 9) {
+ property {
+  name: string(STR_MAGLEV_ENGINE);
+  climates_available: ALL_CLIMATES;
+  introduction_date: date(2020, 1, 1);
+  model_life: VEHICLE_NEVER_EXPIRES;
+  vehicle_life: 40;
+  reliability_decay: 0;
+  sprite_id: SPRITE_ID_NEW_TRAIN;
+  track_type: MGLV;
+  engine_class: ENGINE_CLASS_MAGLEV;
+  power: 32444 hp;
+  speed: 2011 km/h;
+  weight: 30 ton;
+  length: 8;
+  cost_factor: 1;
+  running_cost_base: RUNNING_COST_ELECTRIC;
+  running_cost_factor: 1;
+  cargo_capacity: 0;
+  default_cargo_type: PASS;
+ }
+ graphics { default: group_engine; }
+}
