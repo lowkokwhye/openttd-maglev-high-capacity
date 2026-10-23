@@ -34,7 +34,7 @@ item(FEAT_TRAINS, wagon_passengers, 0) {
   default_cargo_type: PASS;
   loading_speed: 255;
  }
- graphics { cargo_capacity: return 1000; default: group_passengers; }
+ graphics { cargo_capacity: return 500; default: group_passengers; }
 }
 
 spriteset(sprites_steel, "graphics/steel_opengfx.png") {
@@ -69,7 +69,7 @@ item(FEAT_TRAINS, wagon_steel, 1) {
   default_cargo_type: STEL;
   loading_speed: 255;
  }
- graphics { cargo_capacity: return 1000; default: group_steel; }
+ graphics { cargo_capacity: return 500; default: group_steel; }
 }
 
 spriteset(sprites_armoured, "graphics/armoured_opengfx.png") {
@@ -104,7 +104,7 @@ item(FEAT_TRAINS, wagon_armoured, 2) {
   default_cargo_type: VALU;
   loading_speed: 255;
  }
- graphics { cargo_capacity: return 1000; default: group_armoured; }
+ graphics { cargo_capacity: return 500; default: group_armoured; }
 }
 
 spriteset(sprites_oil, "graphics/oil_opengfx.png") {
@@ -139,7 +139,7 @@ item(FEAT_TRAINS, wagon_oil, 3) {
   default_cargo_type: OIL_;
   loading_speed: 255;
  }
- graphics { cargo_capacity: return 1000; default: group_oil; }
+ graphics { cargo_capacity: return 500; default: group_oil; }
 }
 
 spriteset(sprites_coal, "graphics/coal_opengfx.png") {
@@ -174,7 +174,7 @@ item(FEAT_TRAINS, wagon_coal, 4) {
   default_cargo_type: COAL;
   loading_speed: 255;
  }
- graphics { cargo_capacity: return 1000; default: group_coal; }
+ graphics { cargo_capacity: return 500; default: group_coal; }
 }
 
 spriteset(sprites_livestock, "graphics/livestock_opengfx.png") {
@@ -209,7 +209,7 @@ item(FEAT_TRAINS, wagon_livestock, 5) {
   default_cargo_type: LVST;
   loading_speed: 255;
  }
- graphics { cargo_capacity: return 1000; default: group_livestock; }
+ graphics { cargo_capacity: return 500; default: group_livestock; }
 }
 
 spriteset(sprites_grain, "graphics/grain_opengfx.png") {
@@ -244,7 +244,7 @@ item(FEAT_TRAINS, wagon_grain, 6) {
   default_cargo_type: GRAI;
   loading_speed: 255;
  }
- graphics { cargo_capacity: return 1000; default: group_grain; }
+ graphics { cargo_capacity: return 500; default: group_grain; }
 }
 
 spriteset(sprites_goods, "graphics/goods_opengfx.png") {
@@ -280,7 +280,7 @@ item(FEAT_TRAINS, wagon_goods, 7) {
   default_cargo_type: GOOD;
   loading_speed: 255;
  }
- graphics { cargo_capacity: return 1000; default: group_goods; }
+ graphics { cargo_capacity: return 500; default: group_goods; }
 }
 
 spriteset(sprites_iron_ore, "graphics/iron_ore_opengfx.png") {
@@ -315,5 +315,5 @@ item(FEAT_TRAINS, wagon_iron_ore, 8) {
   default_cargo_type: IORE;
   loading_speed: 255;
  }
- graphics { cargo_capacity: return 1000; default: group_iron_ore; }
+ graphics { cargo_capacity: return 500; default: group_iron_ore; }
 }
