@@ -32,6 +32,7 @@ ROWS = {
     "livestock": 180,
     "grain": 260,
     "goods": 220,
+    "wood": 300,
     "iron_ore": 380,
 }
 # Native 28px OpenGFX sprite geometry. See tmpl_trains.nml.
