@@ -12,3 +12,5 @@ STR_WAGON_GOODS : Maglev GOODS Wagon
 STR_WAGON_IRON_ORE : Maglev IRON ORE Wagon
 
 STR_MAGLEV_ENGINE : High-Speed Maglev Engine
+
+STR_WAGON_WOOD : Maglev WOOD Wagon
