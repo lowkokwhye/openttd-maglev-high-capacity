@@ -1,6 +1,6 @@
 // Maglev High Capacity Wagons v0.1.0 - source preview (pending compiler validation)
 grf { grfid: "MH01"; name: string(STR_GRF_NAME); desc: string(STR_GRF_DESC); version: 1; min_compatible_version: 1; }
-cargotable { PASS, STEL, VALU, OIL_, COAL, LVST, GRAI, GOOD, IORE }
+cargotable { PASS, STEL, VALU, OIL_, COAL, LVST, GRAI, GOOD, IORE, WOOD }
 
 spriteset(sprites_passengers, "graphics/passengers_opengfx.png") {
     [0, 0, 8, 18, -3, -12]
@@ -316,6 +316,41 @@ item(FEAT_TRAINS, wagon_iron_ore, 8) {
   loading_speed: 255;
  }
  graphics { cargo_capacity: return 500; default: group_iron_ore; }
+}
+
+spriteset(sprites_wood, "graphics/wood_opengfx.png") {
+    [0, 0, 8, 18, -3, -12]
+    [32, 0, 20, 16, -13, -9]
+    [64, 0, 28, 12, -15, -8]
+    [96, 0, 20, 16, -5, -9]
+    [128, 0, 8, 18, -3, -12]
+    [160, 0, 20, 16, -13, -9]
+    [192, 0, 28, 12, -15, -8]
+    [224, 0, 20, 16, -5, -9]
+}spritegroup group_wood { loaded: sprites_wood; loading: sprites_wood; }
+item(FEAT_TRAINS, wagon_wood, 10) {
+ property {
+  name: string(STR_WAGON_WOOD);
+  climates_available: ALL_CLIMATES;
+  introduction_date: date(2020, 1, 1);
+  model_life: VEHICLE_NEVER_EXPIRES;
+  vehicle_life: 40;
+  reliability_decay: 0;
+  sprite_id: SPRITE_ID_NEW_TRAIN;
+  track_type: MGLV;
+  engine_class: ENGINE_CLASS_MAGLEV;
+  power: 0 hp;
+  speed: 0 km/h;
+  weight: 20 ton;
+  length: 8;
+  cost_factor: 20;
+  running_cost_base: RUNNING_COST_NONE;
+  running_cost_factor: 0;
+  cargo_capacity: 255;
+  default_cargo_type: WOOD;
+  loading_speed: 255;
+ }
+ graphics { cargo_capacity: return 500; default: group_wood; }
 }
 
 // High-speed Maglev engine using original OpenGFX Lev4 Chimaera artwork.
