@@ -47,3 +47,19 @@ for name, y in ROWS.items():
         sheet.paste(sprite, (view * 32, 0))
     sheet.save(OUT / f"{name}_opengfx.png")
     print(f"{name}: original OpenGFX 8bpp artwork, row {y}")
+
+# Original OpenGFX Lev4 Chimaera Maglev locomotive (eight native views).
+ENGINE_SOURCE = ("https://raw.githubusercontent.com/OpenTTD/OpenGFX/master/"
+                 "sprites/png/trains/maglev_lev4_88.png")
+engine = Image.open(BytesIO(urlopen(ENGINE_SOURCE, timeout=45).read()))
+if engine.mode != "P":
+    raise RuntimeError("Expected indexed OpenGFX Lev4 sprite sheet")
+engine_views = ((0,8,24),(9,22,17),(32,32,12),(65,22,17))
+engine_sheet = Image.new("P",(8*32,24),0)
+engine_sheet.putpalette(engine.getpalette())
+for view in range(8):
+    x,w,h = engine_views[view%4]
+    x += 88*(view//4)
+    engine_sheet.paste(engine.crop((x,0,x+w,h)),(view*32,0))
+engine_sheet.save(OUT/"engine_opengfx.png")
+print("engine: original OpenGFX Lev4 Chimaera eight-view Maglev artwork")
