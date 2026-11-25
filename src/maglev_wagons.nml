@@ -376,7 +376,7 @@ item(FEAT_TRAINS, maglev_engine, 9) {
   sprite_id: SPRITE_ID_NEW_TRAIN;
   track_type: MGLV;
   engine_class: ENGINE_CLASS_MAGLEV;
-  power: 32444 hp;
+  power: 65535 hp;
   speed: 2011 km/h;
   weight: 30 ton;
   length: 8;
