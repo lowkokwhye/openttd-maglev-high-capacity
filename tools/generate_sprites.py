@@ -25,7 +25,7 @@ if original.mode != "P":
 # only where needed; passengers use the actual passenger row.
 ROWS = {
     "passengers": 0,
-    "steel": 320,
+    "steel": 340,
     "armoured": 80,
     "oil": 140,
     "coal": 120,
@@ -34,6 +34,11 @@ ROWS = {
     "goods": 220,
     "wood": 300,
     "iron_ore": 380,
+    "steel_empty": 320,
+    "coal_empty": 100,
+    "grain_empty": 240,
+    "wood_empty": 280,
+    "iron_ore_empty": 360,
 }
 # Native 28px OpenGFX sprite geometry. See tmpl_trains.nml.
 VIEWS = ((0, 8, 18), (16, 20, 16), (48, 28, 12), (96, 20, 16))
